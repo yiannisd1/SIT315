@@ -1,0 +1,31 @@
+const uint8_t green_led = 13;
+const uint8_t pirSensor = 2;
+
+void setup()
+{
+ pinMode( green_led,OUTPUT );
+ pinMode(pirSensor, INPUT_PULLUP);
+
+ attachInterrupt(0, pin_ISR, CHANGE );
+
+ Serial.begin(9600);
+}
+
+void loop()
+{}
+
+void pin_ISR()
+{
+ if (digitalRead(pirSensor) == HIGH) // check if the sensor is HIGH
+ {
+   digitalWrite(green_led, HIGH); // turn LED ON
+   Serial.println("Motion detected!");
+   delay(100); // delay 100 milliseconds
+ }
+ else 
+ {
+   digitalWrite(green_led, LOW); // turn LED OFF
+   Serial.println("Motion stopped!");
+   delay(100); // delay 100 milliseconds
+ }
+}
